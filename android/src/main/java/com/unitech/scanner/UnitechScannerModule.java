@@ -2,7 +2,6 @@ package com.unitech.scanner;
 
 import android.device.ScanManager;
 
-import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
