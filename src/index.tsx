@@ -12,45 +12,48 @@ const SUPPORTED_EVENTS = [
 	'scanner-disconnected',
 ];
 
-type CallbackOpenScanner = (result: boolean) => void;
-type CallbackCloseScanner = (result: boolean) => void;
-type CallbackStartDecode = (result: boolean) => void;
-type CallbackStopDecode = (result: boolean) => void;
 type EventBarcode = {
-	barcode: [];
-	barcodeString: string;
+	barcode: string;
 	length: number;
 	type: string;
 };
 
-type EventHandler = (event: string) => void;
+type EventHandler = (event: string, data: object) => void;
 type EventBarcodeHandler = (data: EventBarcode) => void;
 
 const { UnitechScanner } = NativeModules;
 const RNUnitechScanner = new NativeEventEmitter(UnitechScanner);
 
-const openScanner = (callback: CallbackOpenScanner) => {
-	UnitechScanner.openScanner((result: boolean) => {
-		callback(result);
-	});
+const getScannerState = async (): Promise<boolean> => {
+	return await UnitechScanner.getScannerState();
 };
 
-const closeScanner = (callback: CallbackCloseScanner) => {
-	UnitechScanner.closeScanner((result: boolean) => {
-		callback(result);
-	});
+const openScanner = async (): Promise<boolean> => {
+	return await UnitechScanner.openScanner();
 };
 
-const startDecode = (callback: CallbackStartDecode) => {
-	UnitechScanner.startDecode((result: boolean) => {
-		callback(result);
-	});
+const closeScanner = async (): Promise<boolean> => {
+	return await UnitechScanner.closeScanner();
 };
 
-const stopDecode = (callback: CallbackStopDecode) => {
-	UnitechScanner.stopDecode((result: boolean) => {
-		callback(result);
-	});
+const startDecode = async (): Promise<boolean> => {
+	return await UnitechScanner.startDecode();
+};
+
+const stopDecode = async (): Promise<boolean> => {
+	return await UnitechScanner.stopDecode();
+};
+
+const getTriggerLockState = async (): Promise<boolean> => {
+	return await UnitechScanner.getTriggerLockState();
+};
+
+const lockTrigger = async (): Promise<boolean> => {
+	return await UnitechScanner.lockTrigger();
+};
+
+const unlockTrigger = async (): Promise<boolean> => {
+	return await UnitechScanner.unlockTrigger();
 };
 
 const useUnitechScanner = (
@@ -73,7 +76,7 @@ const useUnitechScanner = (
 			SUPPORTED_EVENTS.forEach((event: string) => {
 				listeners.push(
 					RNUnitechScanner.addListener(event, (data) => {
-						onEvent(event);
+						onEvent(event, data);
 					})
 				);
 			});
@@ -87,10 +90,14 @@ const useUnitechScanner = (
 	});
 
 	return {
+		getScannerState,
 		openScanner,
 		closeScanner,
 		startDecode,
 		stopDecode,
+		getTriggerLockState,
+		lockTrigger,
+		unlockTrigger,
 	};
 };
 

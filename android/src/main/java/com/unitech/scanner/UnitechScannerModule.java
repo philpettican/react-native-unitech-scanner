@@ -3,6 +3,7 @@ package com.unitech.scanner;
 import android.device.ScanManager;
 
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -26,26 +27,82 @@ public class UnitechScannerModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void openScanner(Callback callback) {
-      boolean result = scannerManager.openScanner();
-      callback.invoke(result);
+    public void getScannerState(Promise promise) {
+      try {
+        boolean result = scannerManager.getScannerState();
+        promise.resolve(result);
+      } catch (RuntimeException ex) {
+        promise.resolve(false);
+      }
     }
 
     @ReactMethod
-    public void closeScanner(Callback callback) {
-      boolean result = scannerManager.closeScanner();
-      callback.invoke(result);
+    public void openScanner(Promise promise) {
+      try {
+        boolean result = scannerManager.openScanner();
+        promise.resolve(result);
+      } catch (RuntimeException ex) {
+        promise.resolve(false);
+      }
     }
 
     @ReactMethod
-    public void startDecode(Callback callback) {
-      boolean result = scannerManager.startDecode();
-      callback.invoke(result);
+    public void closeScanner(Promise promise) {
+      try {
+        boolean result = scannerManager.closeScanner();
+        promise.resolve(result);
+      } catch (RuntimeException ex) {
+        promise.resolve(false);
+      }
     }
 
     @ReactMethod
-    public void stopDecode(Callback callback) {
-      boolean result = scannerManager.stopDecode();
-      callback.invoke(result);
+    public void startDecode(Promise promise) {
+      try {
+        boolean result = scannerManager.startDecode();
+        promise.resolve(result);
+      } catch (RuntimeException ex) {
+        promise.resolve(false);
+      }
+    }
+
+    @ReactMethod
+    public void stopDecode(Promise promise) {
+      try {
+        boolean result = scannerManager.stopDecode();
+        promise.resolve(result);
+      } catch (RuntimeException ex) {
+        promise.resolve(false);
+      }
+    }
+
+    @ReactMethod
+    public void getTriggerLockState(Promise promise) {
+      try {
+        boolean result = scannerManager.getTriggerLockState();
+        promise.resolve(result);
+      } catch (RuntimeException ex) {
+        promise.resolve(false);
+      }
+    }
+
+    @ReactMethod
+    public void lockTrigger(Promise promise) {
+      try {
+        boolean result = scannerManager.lockTrigger();
+        promise.resolve(result);
+      } catch (RuntimeException ex) {
+        promise.resolve(false);
+      }
+    }
+
+    @ReactMethod
+    public void unlockTrigger(Promise promise) {
+      try {
+        boolean result = scannerManager.unlockTrigger();
+        promise.resolve(result);
+      } catch (RuntimeException ex) {
+        promise.resolve(false);
+      }
     }
 }

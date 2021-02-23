@@ -4,7 +4,6 @@ import android.content.IntentFilter;
 import android.device.ScanManager;
 import android.util.Log;
 
-import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 
@@ -43,6 +42,12 @@ public class ScannerManager {
     this.reactContext.addLifecycleEventListener(lifecycleEventListener);
   }
 
+  public boolean getScannerState() {
+    boolean result = scanManager.getScannerState();
+    Log.d(TAG, "getScannerState: " + result);
+    return result;
+  }
+
   public boolean openScanner() {
     boolean result = scanManager.openScanner();
     Log.d(TAG, "openScanner: " + result);
@@ -56,6 +61,11 @@ public class ScannerManager {
   }
 
   public boolean startDecode() {
+    boolean isScannerOn = this.getScannerState();
+    if (!isScannerOn) {
+      this.openScanner();
+    }
+
     boolean result = scanManager.startDecode();
     Log.d(TAG, "startDecode: " + result);
     return result;
@@ -64,6 +74,24 @@ public class ScannerManager {
   public boolean stopDecode() {
     boolean result = scanManager.stopDecode();
     Log.d(TAG, "stopDecode: " + result);
+    return result;
+  }
+
+  public boolean getTriggerLockState() {
+    boolean result = scanManager.getTriggerLockState();
+    Log.d(TAG, "getTriggerLockState: " + result);
+    return result;
+  }
+
+  public boolean lockTrigger() {
+    boolean result = scanManager.lockTrigger();
+    Log.d(TAG, "lockTrigger: " + result);
+    return result;
+  }
+
+  public boolean unlockTrigger() {
+    boolean result = scanManager.unlockTrigger();
+    Log.d(TAG, "unlockTrigger: " + result);
     return result;
   }
 }
