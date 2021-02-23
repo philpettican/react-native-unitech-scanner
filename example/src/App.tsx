@@ -71,43 +71,43 @@ export default function App() {
 	});
 
 	const onGetScannerStatePress = async () => {
-		const result = await getScannerState();
-		appendToLog(getScannerState.name, { result });
+		const response = await getScannerState();
+		appendToLog(getScannerState.name, { response });
 	};
 
 	const onOpenScannerPress = async () => {
-		const result = await openScanner();
-		appendToLog(openScanner.name, { result });
+		const response = await openScanner();
+		appendToLog(openScanner.name, { response });
 	};
 
 	const onCloseScannerPress = async () => {
-		const result = await closeScanner();
-		appendToLog(closeScanner.name, { result });
+		const response = await closeScanner();
+		appendToLog(closeScanner.name, { response });
 	};
 
 	const onStartDecodePress = async () => {
-		const result = await startDecode();
-		appendToLog(startDecode.name, { result });
+		const response = await startDecode();
+		appendToLog(startDecode.name, { response });
 	};
 
 	const onStopDecodePress = async () => {
-		const result = await stopDecode();
-		appendToLog(stopDecode.name, { result });
+		const response = await stopDecode();
+		appendToLog(stopDecode.name, { response });
 	};
 
 	const onGetTriggerLockStatePress = async () => {
-		const result = await getTriggerLockState();
-		appendToLog(getTriggerLockState.name, { result });
+		const response = await getTriggerLockState();
+		appendToLog(getTriggerLockState.name, { response });
 	};
 
 	const onLockTriggerPress = async () => {
-		const result = await lockTrigger();
-		appendToLog(lockTrigger.name, { result });
+		const response = await lockTrigger();
+		appendToLog(lockTrigger.name, { response });
 	};
 
 	const onUnlockTriggerPress = async () => {
-		const result = await unlockTrigger();
-		appendToLog(unlockTrigger.name, { result });
+		const response = await unlockTrigger();
+		appendToLog(unlockTrigger.name, { response });
 	};
 
 	const renderItem = ({ item }: { item: any }) => {

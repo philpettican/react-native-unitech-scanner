@@ -66,8 +66,8 @@ Get the scanner power states. Returns true if the scanner power on
 #### Examples
 
 ```js
-getScannerState().then((result) => {
-	console.log(result);
+getScannerState().then((response) => {
+	console.log(response);
 });
 ```
 
@@ -78,8 +78,8 @@ Turn on the power for the bar code reader. Returns false if failed, true if succ
 #### Examples
 
 ```js
-openScanner().then((result) => {
-	console.log(result);
+openScanner().then((response) => {
+	console.log(response);
 });
 ```
 
@@ -90,8 +90,8 @@ Turn off the power for the bar code reader. Returns false if failed, true if suc
 #### Examples
 
 ```js
-closeScanner().then((result) => {
-	console.log(result);
+closeScanner().then((response) => {
+	console.log(response);
 });
 ```
 
@@ -102,8 +102,8 @@ Call this method to start decoding. Returns true if the scanner and the trigger 
 #### Examples
 
 ```js
-startDecode().then((result) => {
-	console.log(result);
+startDecode().then((response) => {
+	console.log(response);
 });
 ```
 
@@ -114,8 +114,8 @@ This stops any data acquisition currently in progress. Returns true if stop succ
 #### Examples
 
 ```js
-stopDecode().then((result) => {
-	console.log(result);
+stopDecode().then((response) => {
+	console.log(response);
 });
 ```
 
@@ -126,8 +126,8 @@ Get the scan trigger status. Returns true if the scan trigger is already active
 #### Examples
 
 ```js
-getTriggerLockState().then((result) => {
-	console.log(result);
+getTriggerLockState().then((response) => {
+	console.log(response);
 });
 ```
 
@@ -138,8 +138,8 @@ Set the scan trigger inactive (disable the scan button). Returns true if success
 #### Examples
 
 ```js
-lockTrigger().then((result) => {
-	console.log(result);
+lockTrigger().then((response) => {
+	console.log(response);
 });
 ```
 
@@ -150,8 +150,8 @@ Set the scan trigger active (enable the scan button). Returns true if successful
 #### Examples
 
 ```js
-unlockTrigger().then((result) => {
-	console.log(result);
+unlockTrigger().then((response) => {
+	console.log(response);
 });
 ```
 
