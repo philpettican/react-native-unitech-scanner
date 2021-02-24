@@ -51,7 +51,7 @@ yarn test
 
 To edit the Objective-C files, open `example/ios/UnitechScannerExample.xcworkspace` in XCode and find the source files at `Pods > Development Pods > react-native-unitech-scanner`.
 
-To edit the Java files, open `example/android` in Android studio and find the source files at `reactnativeunitechscanner` under `Android`.
+To edit the Java files, open `example/android` in Android studio and find the source files at `react-native-unitech-scanner` under `Android`.
 
 ### Commit message convention
 

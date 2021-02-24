@@ -1,4 +1,4 @@
-package com.example.reactnativeunitechscanner;
+package com.unitech.scanner.example;
 
 import com.facebook.react.ReactActivity;
 

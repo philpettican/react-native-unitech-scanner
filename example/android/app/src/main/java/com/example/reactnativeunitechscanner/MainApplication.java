@@ -1,4 +1,4 @@
-package com.example.reactnativeunitechscanner;
+package com.unitech.scanner.example;
 
 import android.app.Application;
 import android.content.Context;
@@ -10,7 +10,6 @@ import com.facebook.react.ReactInstanceManager;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import com.unitech.scanner.UnitechScannerPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -27,7 +26,6 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for UnitechScannerExample:
           // packages.add(new MyReactNativePackage());
-          packages.add(new UnitechScannerPackage());
           return packages;
         }
 

@@ -118,6 +118,6 @@ repositories {
 
 dependencies {
   // noinspection GradleDynamicVersion
-  api 'com.facebook.react:react-native:+'
-    implementation files('sdklibrary/libs/platform_sdk_v4.0.0115.jar')
+  implementation 'com.facebook.react:react-native:+'  // From node_modules
+  implementation files('libs/platform_sdk_v4.0.0115.jar')
 }
