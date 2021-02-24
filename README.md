@@ -19,45 +19,76 @@ npm install react-native-unitech-scanner
 ## Usage
 
 ```js
-import useUnitechScanner from 'react-native-unitech-scanner';
+import ScanManager from 'react-native-unitech-scanner';
 
 // ...
 
 // Called when barcode is scanned
-const onScan = useCallback((data) => {
+const onScan = (data) => {
 	// Handle the barcode data
 	const { barcode, length, type } = data;
 	console.log('barcode', barcode);
 	console.log('length', length);
 	console.log('type', type);
-}, []);
+};
 
-const {
-	getScannerState,
-	openScanner,
-	closeScanner,
-	startDecode,
-	stopDecode,
-	getTriggerLockState,
-	lockTrigger,
-	unlockTrigger,
-} = useUnitechScanner(onScan);
+useEffect(() => {
+	// Subscribe to barcode scan event
+	const listener = ScanManager.addEventListener(
+		ScanManager.constants.events.SCANNER_BARCODE,
+		onScan
+	);
+
+	// Make sure to unsubscribe from event when finished
+	return () => {
+		listener.remove();
+		// or
+		// ScanManager.removeEventListener(listener.key);
+	};
+}, []);
 ```
 
 ## API:
 
-| Method                                        | Return Type        | iOS | Android |
-| --------------------------------------------- | ------------------ | --- | ------- |
-| [getScannerState()](#getScannerState)         | `Promise<boolean>` | ❌  | ✅      |
-| [openScanner()](#openScanner)                 | `Promise<boolean>` | ❌  | ✅      |
-| [closeScanner()](#closeScanner)               | `Promise<boolean>` | ❌  | ✅      |
-| [startDecode()](#startDecode)                 | `Promise<boolean>` | ❌  | ✅      |
-| [stopDecode()](#stopDecode)                   | `Promise<boolean>` | ❌  | ✅      |
-| [getTriggerLockState()](#getTriggerLockState) | `Promise<boolean>` | ❌  | ✅      |
-| [lockTrigger()](#lockTrigger)                 | `Promise<boolean>` | ❌  | ✅      |
-| [unlockTrigger()](#unlockTrigger)             | `Promise<boolean>` | ❌  | ✅      |
+| Method                                        | Return Type            | iOS | Android |
+| --------------------------------------------- | ---------------------- | --- | ------- |
+| [addEventListener()](#addEventListener)       | `EmmitterSubscription` | ❌  | ✅      |
+| [removeEventListener()](#removeEventListener) | `void`                 | ❌  | ✅      |
+| [getScannerState()](#getScannerState)         | `Promise<boolean>`     | ❌  | ✅      |
+| [openScanner()](#openScanner)                 | `Promise<boolean>`     | ❌  | ✅      |
+| [closeScanner()](#closeScanner)               | `Promise<boolean>`     | ❌  | ✅      |
+| [startDecode()](#startDecode)                 | `Promise<boolean>`     | ❌  | ✅      |
+| [stopDecode()](#stopDecode)                   | `Promise<boolean>`     | ❌  | ✅      |
+| [getTriggerLockState()](#getTriggerLockState) | `Promise<boolean>`     | ❌  | ✅      |
+| [lockTrigger()](#lockTrigger)                 | `Promise<boolean>`     | ❌  | ✅      |
+| [unlockTrigger()](#unlockTrigger)             | `Promise<boolean>`     | ❌  | ✅      |
 
 ---
+
+### addEventListener(eventType, handler)
+
+Attaches a listener to an event.
+
+#### Examples
+
+```js
+ScanManager.addEventListener(
+	ScanManager.constants.events.SCANNER_BARCODE,
+	(data) => {
+		console.log('eventData', data);
+	}
+);
+```
+
+### removeEventListener(subscriptionId)
+
+Removes the event listener. Do this in componentWillUnmount to prevent memory leaks
+
+#### Examples
+
+```js
+ScanManager.removeEventListener(subscriptionId);
+```
 
 ### getScannerState()
 
@@ -66,7 +97,7 @@ Get the scanner power states. Returns true if the scanner power on
 #### Examples
 
 ```js
-getScannerState().then((response) => {
+ScanManager.getScannerState().then((response) => {
 	console.log(response);
 });
 ```
@@ -78,7 +109,7 @@ Turn on the power for the bar code reader. Returns false if failed, true if succ
 #### Examples
 
 ```js
-openScanner().then((response) => {
+ScanManager.openScanner().then((response) => {
 	console.log(response);
 });
 ```
@@ -90,7 +121,7 @@ Turn off the power for the bar code reader. Returns false if failed, true if suc
 #### Examples
 
 ```js
-closeScanner().then((response) => {
+ScanManager.closeScanner().then((response) => {
 	console.log(response);
 });
 ```
@@ -102,7 +133,7 @@ Call this method to start decoding. Returns true if the scanner and the trigger 
 #### Examples
 
 ```js
-startDecode().then((response) => {
+ScanManager.startDecode().then((response) => {
 	console.log(response);
 });
 ```
@@ -114,7 +145,7 @@ This stops any data acquisition currently in progress. Returns true if stop succ
 #### Examples
 
 ```js
-stopDecode().then((response) => {
+ScanManager.stopDecode().then((response) => {
 	console.log(response);
 });
 ```
@@ -126,7 +157,7 @@ Get the scan trigger status. Returns true if the scan trigger is already active
 #### Examples
 
 ```js
-getTriggerLockState().then((response) => {
+ScanManager.getTriggerLockState().then((response) => {
 	console.log(response);
 });
 ```
@@ -138,7 +169,7 @@ Set the scan trigger inactive (disable the scan button). Returns true if success
 #### Examples
 
 ```js
-lockTrigger().then((response) => {
+ScanManager.lockTrigger().then((response) => {
 	console.log(response);
 });
 ```
@@ -150,7 +181,7 @@ Set the scan trigger active (enable the scan button). Returns true if successful
 #### Examples
 
 ```js
-unlockTrigger().then((response) => {
+ScanManager.unlockTrigger().then((response) => {
 	console.log(response);
 });
 ```

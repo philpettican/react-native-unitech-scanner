@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	SafeAreaView,
 	StyleSheet,
@@ -8,7 +8,7 @@ import {
 	FlatList,
 	ScrollView,
 } from 'react-native';
-import useUnitechScanner from 'react-native-unitech-scanner';
+import ScanManager from 'react-native-unitech-scanner';
 
 export default function App() {
 	const [events, setEvents] = useState<object[]>([]);
@@ -22,42 +22,34 @@ export default function App() {
 	const [lockTriggerEnabled, setLockTriggerEnabled] = useState(false);
 	const [unlockTriggerEnabled, setUnlockTriggerEnabled] = useState(false);
 
-	const appendToLog = useCallback(
-		(eventType, data) => {
-			const eventEntry = {
-				...data,
-				eventType,
-			};
+	const appendToLog = (eventType: string, data: object) => {
+		const eventEntry = {
+			...data,
+			eventType,
+		};
 
-			const previousEvents = events || [];
-			const updatedEvents = [eventEntry, ...previousEvents];
-			setEvents(updatedEvents);
-		},
-		[events]
-	);
+		setEvents((previousEvents) => [eventEntry, ...previousEvents]);
+	};
 
-	const onScan = useCallback(
-		(data) => {
+	useEffect(() => {
+		const onScan = (data: object) => {
 			appendToLog('onScan', data);
-		},
-		[appendToLog]
-	);
+		};
 
-	const {
-		getScannerState,
-		openScanner,
-		closeScanner,
-		startDecode,
-		stopDecode,
-		getTriggerLockState,
-		lockTrigger,
-		unlockTrigger,
-	} = useUnitechScanner(onScan, () => {});
+		const listener = ScanManager.addEventListener(
+			ScanManager.constants.events.SCANNER_BARCODE,
+			onScan
+		);
+
+		return () => {
+			listener.remove();
+		};
+	}, []);
 
 	useEffect(() => {
 		async function init() {
-			const scannerState = await getScannerState();
-			const triggerLockState = await getTriggerLockState();
+			const scannerState = await ScanManager.getScannerState();
+			const triggerLockState = await ScanManager.getTriggerLockState();
 			setOpenScannerEnabled(!scannerState);
 			setCloseScannerEnabled(scannerState);
 			setStartDecodeEnabled(scannerState);
@@ -71,43 +63,43 @@ export default function App() {
 	});
 
 	const onGetScannerStatePress = async () => {
-		const response = await getScannerState();
-		appendToLog(getScannerState.name, { response });
+		const response = await ScanManager.getScannerState();
+		appendToLog(ScanManager.getScannerState.name, { response });
 	};
 
 	const onOpenScannerPress = async () => {
-		const response = await openScanner();
-		appendToLog(openScanner.name, { response });
+		const response = await ScanManager.openScanner();
+		appendToLog(ScanManager.openScanner.name, { response });
 	};
 
 	const onCloseScannerPress = async () => {
-		const response = await closeScanner();
-		appendToLog(closeScanner.name, { response });
+		const response = await ScanManager.closeScanner();
+		appendToLog(ScanManager.closeScanner.name, { response });
 	};
 
 	const onStartDecodePress = async () => {
-		const response = await startDecode();
-		appendToLog(startDecode.name, { response });
+		const response = await ScanManager.startDecode();
+		appendToLog(ScanManager.startDecode.name, { response });
 	};
 
 	const onStopDecodePress = async () => {
-		const response = await stopDecode();
-		appendToLog(stopDecode.name, { response });
+		const response = await ScanManager.stopDecode();
+		appendToLog(ScanManager.stopDecode.name, { response });
 	};
 
 	const onGetTriggerLockStatePress = async () => {
-		const response = await getTriggerLockState();
-		appendToLog(getTriggerLockState.name, { response });
+		const response = await ScanManager.getTriggerLockState();
+		appendToLog(ScanManager.getTriggerLockState.name, { response });
 	};
 
 	const onLockTriggerPress = async () => {
-		const response = await lockTrigger();
-		appendToLog(lockTrigger.name, { response });
+		const response = await ScanManager.lockTrigger();
+		appendToLog(ScanManager.lockTrigger.name, { response });
 	};
 
 	const onUnlockTriggerPress = async () => {
-		const response = await unlockTrigger();
-		appendToLog(unlockTrigger.name, { response });
+		const response = await ScanManager.unlockTrigger();
+		appendToLog(ScanManager.unlockTrigger.name, { response });
 	};
 
 	const renderItem = ({ item }: { item: any }) => {
