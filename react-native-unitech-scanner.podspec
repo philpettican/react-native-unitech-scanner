@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/philpettican/react-native-unitech-scanner.git", :tag => "#{s.version}" }
 
   
-  s.source_files = "ios/**/*.{h,m,mm,swift}"
+  s.source_files = "ios/**/*.{h,m,mm}"
   
 
   s.dependency "React-Core"
