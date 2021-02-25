@@ -1,6 +1,6 @@
 {
 	"name": "react-native-unitech-scanner",
-	"version": "0.1.3",
+	"version": "0.1.4",
 	"description": "Unitech Scanner",
 	"main": "lib/commonjs/index",
 	"module": "lib/module/index",
