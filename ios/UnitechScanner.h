@@ -1,5 +1,6 @@
 #import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
 
-@interface UnitechScanner : NSObject <RCTBridgeModule>
+@interface UnitechScanner : RCTEventEmitter <RCTBridgeModule>
 
 @end
