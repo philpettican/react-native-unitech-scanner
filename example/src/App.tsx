@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+	DeviceEventEmitter,
 	SafeAreaView,
 	StyleSheet,
 	View,
@@ -62,6 +63,22 @@ export default function App() {
 		init();
 	});
 
+	const onMockBarcodeScanPress = () => {
+		const minBarcode = 1000000000;
+		const maxBarcode = 10000000000;
+		const minType = 1;
+		const maxType = 49;
+		const barcode = Math.floor(
+			Math.random() * (maxBarcode - minBarcode) + minBarcode
+		);
+		const type = Math.floor(Math.random() * (maxType - minType) + minType);
+		DeviceEventEmitter.emit(ScanManager.constants.events.SCANNER_BARCODE, {
+			barcode,
+			type,
+			length: barcode.toString().length,
+		});
+	};
+
 	const onGetScannerStatePress = async () => {
 		const response = await ScanManager.getScannerState();
 		appendToLog(ScanManager.getScannerState.name, { response });
@@ -121,6 +138,10 @@ export default function App() {
 	};
 
 	const actions = [
+		{
+			title: 'Mock Barcode Scan',
+			onPress: onMockBarcodeScanPress,
+		},
 		{
 			title: 'Get Scanner State',
 			onPress: onGetScannerStatePress,
